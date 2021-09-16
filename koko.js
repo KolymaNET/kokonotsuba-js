@@ -28,8 +28,11 @@ document.write(`<style>
 	transition: width 0.1s,height 0.1s;
 	overflow: hidden;
 	resize: both;
+	animation: fade 0.1s;
 }
-
+.wclosing {
+	animation: fadeout 0.1s;
+}
 #wintop, .window:hover {
 	opacity: 1;
 }
@@ -69,7 +72,6 @@ document.write(`<style>
 	display: inline-block;
 	text-decoration: none;
 	cursor: default;
-	text-shadow: 0 0 1px #000;
 	padding: 0.1em;
 	transition: all 0.1s;
 }
@@ -107,7 +109,6 @@ document.write(`<style>
 	position: fixed;
 	left: 8px;
 	bottom: 8px;
-	box-shadow: #000 0px 0px 2px;
 }
 </style>
 <style id="jspersistnav">
@@ -126,6 +127,8 @@ document.write(`<style>
 </style>`);
 
 /* - */
+if (typeof(FONTSIZE) === "undefined") { var FONTSIZE = 12; }
+
 const $doc = document;
 const $win = window;
 
@@ -238,8 +241,10 @@ class kkwmWindow {
 		if (exist) {
 			exist.flash();
 			kkwm.top(name);
+			delete this;
 			return;
 		}
+
 		this.name = name;
 		this.minimized = false;
 		this.div = $doc.createElement("div");
@@ -355,7 +360,9 @@ class kkwmWindow {
 /* Koko JS */
 const kkjs = {
 	modules: Array(),
+	posts: null,
 	startup: function () {
+		kkjs.posts = $class("post");
 		kkjs.l();
 		if (!localStorage.getItem("alwaysnoko"))
 			localStorage.setItem("alwaysnoko", "true");
@@ -437,9 +444,8 @@ const kkjs = {
 		var email = $id("email");
 		if (!email) return;
 		email.insertAdjacentHTML("afterend", '<nobr class="emailjs">'+
-			'<label><input type="checkbox" onclick="kkjs.ee2(this.id, this.checked);" id="sage" /> sage</label>'+
-			'<label><input type="checkbox" onclick="kkjs.ee2(\'noko2\',false);kkjs.ee2(this.id,this.checked);" id="noko" /> noko</label>'+
-			'<label><input type="checkbox" onclick="if(this.checked){kkjs.ee2(\'noko\',false);}kkjs.ee2(this.id,this.checked);" id="noko2" /> noko2</label>'+
+			'<label class="nokosagenoko2"><input type="checkbox" class="nokosagenoko2" onclick="kkjs.ee2(this.id, this.checked);" id="sage" /> sage</label>'+
+			'<label class="nokosagenoko2"><input type="checkbox" class="nokosagenoko2" onclick="kkjs.ee2(\'noko2\',false);kkjs.ee2(this.id,this.checked);" id="noko" /> noko</label>'+
 		'</nobr>');
 		if (localStorage.getItem("alwaysnoko")=="true") {
 			email.value+= 'noko';
@@ -462,15 +468,6 @@ const kkjs = {
 		var upf = $id("upfile");
 		if (upf) upf.insertAdjacentHTML('afterend',
 			'<small>[<a href="javascript:void(0);" onclick="$id(\'upfile\').value=\'\';">X</a>]</small> ');
-	},
-	// form switch
-	form_index: 0,
-	form_switch: function () {
-		const a = Array($id("postarea"), $id("postarea2"));
-		if (!(a[0]&&a[1])) return;
- 		const pform = $id("postform");
-		a[kkjs.form_index=kkjs.form_index?0:1].appendChild(pform);
-		pform.scrollIntoView({behavior:"smooth",block:"center"});
 	},
 	// wz_tooltip
 	wztt: function (el=$doc.body, reset=false) {
