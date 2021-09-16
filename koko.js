@@ -444,14 +444,15 @@ const kkjs = {
 		var email = $id("email");
 		if (!email) return;
 		email.insertAdjacentHTML("afterend", '<nobr class="emailjs">'+
-			'<label class="nokosagenoko2"><input type="checkbox" class="nokosagenoko2" onclick="kkjs.ee2(this.id, this.checked);" id="sage" /> sage</label>'+
-			'<label class="nokosagenoko2"><input type="checkbox" class="nokosagenoko2" onclick="kkjs.ee2(\'noko2\',false);kkjs.ee2(this.id,this.checked);" id="noko" /> noko</label>'+
+			//'<label class="nokosagenoko2"><input type="checkbox" class="nokosagenoko2" onclick="kkjs.ee2(this.id, this.checked);" id="sage" /> sage</label>'+
+			//'<label class="nokosagenoko2"><input type="checkbox" class="nokosagenoko2" onclick="kkjs.ee2(\'noko2\',false);kkjs.ee2(this.id,this.checked);" id="noko" /> noko</label>'+
 		'</nobr>');
 		if (localStorage.getItem("alwaysnoko")=="true") {
-			email.value+= 'noko';
-			$id('noko').checked = true;
+			if (email.value == "") // Only add if blank
+				email.value+= 'noko';
+			//$id('noko').checked = true;
 		}
-		email.addEventListener("input", kkjs.ee3);
+		//email.addEventListener("input", kkjs.ee3);
 	},
 	ee2: function (value, mode) {
 		if (mode) email.value+= value;
