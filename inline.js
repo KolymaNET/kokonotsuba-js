@@ -41,7 +41,7 @@ const kkinline = { name: "KK Quote Inlining",
 					this.parentElement.parentElement.parentElement.parentElement.querySelector(".comment").insertAdjacentElement("afterBegin",t);
 				}
 				t.style.display = "table";
-				t.style.border = "1px solid";
+				t.style.border = "1px dashed";
 				t.style.borderColor = window.getComputedStyle(document.querySelector(".reply"),null).getPropertyValue("border-color");
 				t.innerHTML = o.outerHTML;
 				if (t.querySelector(".op")) {
