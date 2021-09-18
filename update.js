@@ -14,7 +14,7 @@ const kkupdate = { name: "KK Thread Updating",
 		var controls = document.createElement("div");
 		controls.id = "controls";
 		document.querySelector(".thread").nextElementSibling.insertAdjacentElement("afterEnd", controls);
-		controls.innerHTML += "<hr>[<a onclick=\"kkupdate.update();return false;\" href=\"\">Update</a>] [<label><input onchange=\"kkupdate.toggleAuto();\" type=\"checkbox\">Auto</label>] <span id=\"update-status\"></span>";
+		controls.innerHTML += "<hr size=\"1\">[<a onclick=\"kkupdate.update();return false;\" href=\"\">Update</a>] [<label><input onchange=\"kkupdate.toggleAuto();\" type=\"checkbox\">Auto</label>] <span id=\"update-status\"></span>";
 		return true;
 	},
 	reset: function () {
