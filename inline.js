@@ -10,15 +10,24 @@ const kkinline = { name: "KK Quote Inlining",
 		if (localStorage.getItem("quoteinline") != "true") {
 			return true;
 		}
-		document.querySelectorAll(".comment .quotelink").forEach(function (i) {
+		document.querySelectorAll(".quotelink").forEach(function (i) {
 			i.onclick = function(e){
 				if (e.shiftKey) {
 					window.location.href = this.href;
 					return false;
 				}
-				if (this.nextElementSibling) {
-					if (this.nextElementSibling.classList.contains("inline-quote")) {
-						this.nextElementSibling.remove();
+				if (this.parentElement.classList.contains("comment")) {
+					if (this.nextElementSibling) {
+						if (this.nextElementSibling.classList.contains("inline-quote")) {
+							this.nextElementSibling.remove();
+							return false;
+						}
+					}
+				} else {
+					var id = this.parentElement.parentElement.parentElement.parentElement.id;
+					var inline = this.parentElement.parentElement.parentElement.parentElement.querySelector("#p"+this.innerText.slice(2)+"-inline"+id);
+					if (inline) {
+						inline.remove();
 						return false;
 					}
 				}
@@ -26,17 +35,32 @@ const kkinline = { name: "KK Quote Inlining",
 				if (!o) {return true;}
 				var t = document.createElement("div");
 				t.classList.add("inline-quote");
-				this.insertAdjacentElement("afterEnd",t);
+				if (this.parentElement.classList.contains("comment")) {
+					this.insertAdjacentElement("afterEnd",t);
+				} else {
+					this.parentElement.parentElement.parentElement.parentElement.querySelector(".comment").insertAdjacentElement("afterBegin",t);
+				}
 				t.style.display = "table";
 				t.style.border = "1px solid";
 				t.style.borderColor = window.getComputedStyle(document.querySelector(".reply"),null).getPropertyValue("border-color");
 				t.innerHTML = o.outerHTML;
 				if (t.querySelector(".op")) {
-					t.querySelector(".op").id = o.id + "-inline"+this.parentElement.parentElement.id
+					if (this.parentElement.classList.contains("comment")) {
+						t.querySelector(".op").id = o.id + "-inline"+this.parentElement.parentElement.id;
+					} else {
+						t.querySelector(".op").id = o.id + "-inline"+this.parentElement.parentElement.parentElement.parentElement.id;
+					}
 				} else {
-					t.id = o.id + "-inline"+this.parentElement.parentElement.id
+					if (this.parentElement.classList.contains("comment")) {
+						t.id = o.id + "-inline"+this.parentElement.parentElement.id;
+					} else {
+						t.id = o.id + "-inline"+this.parentElement.parentElement.parentElement.parentElement.id;
+					}
 				}
 				t.querySelector(".backlinks").remove();
+				if (this.parentElement.classList.contains("comment")) {
+					kkinline.startup();
+				}
 				if (kkimg) {
 					kkimg.reset();
 					kkimg.startup();
@@ -50,7 +74,7 @@ const kkinline = { name: "KK Quote Inlining",
 		document.querySelectorAll(".inline-quote").forEach(function (i) {
 			i.remove();
 		});
-		document.querySelectorAll(".comment .quotelink").forEach(function (i) {
+		document.querySelectorAll(".quotelink").forEach(function (i) {
 			i.onclick = function(){}
 		});
 	},
