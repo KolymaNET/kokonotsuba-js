@@ -27,7 +27,7 @@ const kkinline = { name: "KK Quote Inlining",
 				this.insertAdjacentElement("afterEnd",t);
 				t.style.display = "table";
 				t.style.border = "1px solid";
-				t.style.borderColor = window.getComputedStyle(document.querySelector(".inlineborder"),null).getPropertyValue("border-color");
+				t.style.borderColor = window.getComputedStyle(document.querySelector(".reply"),null).getPropertyValue("border-color");
 				t.innerHTML = o.outerHTML;
 				if (t.querySelector(".op")) {
 					t.querySelector(".op").id = o.id + "-inline"+this.parentElement.parentElement.id
