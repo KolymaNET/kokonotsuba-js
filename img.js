@@ -205,7 +205,7 @@ const kkgal = {
 		for (var i=0; i<kkimg.postimg.length; i++) {
 			var a = kkimg.postimg[i].parentNode;
 			var pno = a.parentNode.id.substr(1);
-			
+
 			if (pno == no) {
 				var thumb = $id("galthumb"+no);
 				thumb.classList.add("activethumb");
@@ -300,17 +300,17 @@ const kkimg = { name: "KK Image Features",
 		var thumb = p.getElementsByClassName("postimg")[0]; if (!thumb) return;
 		var a = thumb.parentNode; if (!a || a.tagName != "A") return;
 		var ext; _split = a.href.split("."); ext = _split[_split.length-1];
-		
+
 		a.style.display = "none"
 		if (kkimg.imgext.includes(ext)) {
 			a.insertAdjacentHTML("afterend", '<div class="expand">'+
-			'<a href="'+a.href+'" onclick="event.preventDefault();kkimg.contract('+no+');">'+
-				'<img src="'+a.href+'" alt="Full image" onerror="kkimg.error('+no+');" class="expandimg" title="Click to contract" border="0" />'+
+			'<a href="'+a.href+'" onclick="event.preventDefault();kkimg.contract(\''+no+'\');">'+
+				'<img src="'+a.href+'" alt="Full image" onerror="kkimg.error(\''+no+'\');" class="expandimg" title="Click to contract" border="0" />'+
 			'</a></div>');
 			return true;
 		} else if (kkimg.vidext.includes(ext)) {
 			a.insertAdjacentHTML("afterend", '<div class="expand">'+
-				'<div>[<a href="javascript:kkimg.contract('+no+');">Close</a>]</div>'+
+				'<div>[<a href="javascript:kkimg.contract(\''+no+'\');">Close</a>]</div>'+
 				'<video controls="controls" loop="loop" autoplay="autoplay" src="'+a.href+'"></video>'+
 			'</div>');
 			return true;
@@ -329,7 +329,7 @@ const kkimg = { name: "KK Image Features",
 	error: function (no) {
 		var p = $id("p"+no);
 		var exp = p.getElementsByClassName("expand")[0];
-		exp.innerHTML = '<span class="error">Error loading file!</span> [<a href="javascript:kkimg.contract('+no+');">Close</a>]';
+		exp.innerHTML = '<span class="error">Error loading file!</span> [<a href="javascript:kkimg.contract(\''+no+'\');">Close</a>]';
 	}
 };
 
