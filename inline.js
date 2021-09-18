@@ -16,9 +16,11 @@ const kkinline = { name: "KK Quote Inlining",
 					window.location.href = this.href;
 					return false;
 				}
-				if (this.nextElementSibling.nodeName == "DIV") {
-					this.nextElementSibling.remove();
-					return false;
+				if (this.nextElementSibling) {
+					if (this.nextElementSibling.classList.contains("inline-quote")) {
+						this.nextElementSibling.remove();
+						return false;
+					}
 				}
 				var o = document.querySelector("#p"+this.innerText.slice(2));
 				if (!o) {return true;}
