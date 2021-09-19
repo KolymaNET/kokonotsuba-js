@@ -4,6 +4,7 @@
 /* Module */
 const kkupdate = { name: "KK Thread Updating",
 	total: 0,
+	otitle: document.title,
 	startup: function () {
 		if (!localStorage.getItem("update")) {
 			localStorage.setItem("update", "true");
@@ -18,9 +19,8 @@ const kkupdate = { name: "KK Thread Updating",
 		controls.innerHTML += "<hr size=\"1\">[<a onclick=\"kkupdate.update();return false;\" href=\"\">Update</a>] [<label><input onchange=\"kkupdate.toggleAuto();\" type=\"checkbox\">Auto</label>] <span id=\"update-status\"></span>";
 		document.addEventListener("scroll", function () {
 			if ((window.innerHeight + document.documentElement.scrollTop) >= (document.documentElement.scrollHeight - 2)) {
-				var t = document.title.split(" ");
-				t.shift();
-				document.title = t.join(" ");
+				kkupdate.total = 0;
+				document.title = kkupdate.otitle;
 			}
 		});
 		return true;
@@ -76,7 +76,7 @@ const kkupdate = { name: "KK Thread Updating",
 						});
 					}
 					document.querySelector("#update-status").innerText = npc+" new post"+(npc>1 ? "s" : "");
-					document.title = "("+npc+") "+document.title;
+					if (kkupdate.total > 0) document.title = "("+kkupdate.total+") "+kkupdate.otitle;
 					if (kkimg) kkimg.startup();
 					if (kkinline) kkinline.startup();
 					return true;
