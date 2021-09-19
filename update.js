@@ -3,6 +3,7 @@
 
 /* Module */
 const kkupdate = { name: "KK Thread Updating",
+	total: 0,
 	startup: function () {
 		if (!localStorage.getItem("update")) {
 			localStorage.setItem("update", "true");
@@ -15,6 +16,13 @@ const kkupdate = { name: "KK Thread Updating",
 		controls.id = "controls";
 		document.querySelector(".thread").nextElementSibling.insertAdjacentElement("afterEnd", controls);
 		controls.innerHTML += "<hr size=\"1\">[<a onclick=\"kkupdate.update();return false;\" href=\"\">Update</a>] [<label><input onchange=\"kkupdate.toggleAuto();\" type=\"checkbox\">Auto</label>] <span id=\"update-status\"></span>";
+		document.addEventListener("scroll", function () {
+			if ((window.innerHeight + document.documentElement.scrollTop) >= (document.documentElement.scrollHeight - 2)) {
+				var t = document.title.split(" ");
+				t.shift();
+				document.title = t.join(" ");
+			}
+		});
 		return true;
 	},
 	reset: function () {
@@ -53,11 +61,11 @@ const kkupdate = { name: "KK Thread Updating",
 						document.querySelector("#update-status").innerText = "No new posts";
 						return true;
 					}
+					kkupdate.total += npc;
 					kkupdate.inci = 0;
 					var ptable;
 					for (i = i; i <= frs.length-1; i++) {
 						document.querySelector(".thread").insertAdjacentElement("beforeEnd", frs[i].parentElement.parentElement.parentElement);
-						/* scan for quotes, update backlinks */
 						frs[i].querySelectorAll(".comment .quotelink").forEach(function (i) {
 							var id = i.innerText.slice(2);
 							var lr = document.querySelector("#p"+id);
@@ -68,6 +76,7 @@ const kkupdate = { name: "KK Thread Updating",
 						});
 					}
 					document.querySelector("#update-status").innerText = npc+" new post"+(npc>1 ? "s" : "");
+					document.title = "("+npc+") "+document.title;
 					if (kkimg) kkimg.startup();
 					if (kkinline) kkinline.startup();
 					return true;
