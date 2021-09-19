@@ -101,6 +101,7 @@ const kkgal = {
 	startup: function () {
 		var df = $id("delform");
 		if (!df) return;
+		if (document.querySelector("#galfuncs")) return;
 		df.insertAdjacentHTML("beforebegin", '<div align="RIGHT" id="galfuncs"><label><input type="checkbox" onchange="localStorage.setItem(\'galmode\',this.checked);"'+( localStorage.getItem("galmode")=="true" ? ' checked="checked"' : '')+' />Gallery mode</label></div>');
 		$doc.body.insertAdjacentHTML("beforeend", `
 <div id="galframe">
