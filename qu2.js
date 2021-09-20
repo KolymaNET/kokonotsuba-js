@@ -14,7 +14,9 @@ const kkqu2 = { name: "KK Quotelink Marking",
 		if (!localStorage.getItem("markopqu")) localStorage.setItem("markopqu", "true");
 		var qu = $class("quotelink");
 		for(var i=0; i<qu.length; i++) {
-			var opno = $p_class(qu[i], "thread").id.substr(1);
+			var opno = $p_class(qu[i], "thread");
+			if (opno) opno = opno.id;
+			if (opno) opno = opno.substr(1);
 			if (localStorage.getItem("markopqu")=="true") {
 				if (qu[i].href.split("#p")[1]==opno)
 					qu[i].classList.add("oplink");
