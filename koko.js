@@ -417,7 +417,7 @@ const kkjs = {
 		for (i=0; i<$doc.forms.length; i++) {
 			with ($doc.forms[i]) {
 				if (typeof(pwd)!='undefined') { pwd.value=P; }
-				if (typeof(name)!='undefined') { name.value=decodeURI(escape(N)); }
+				if (typeof(name)!='undefined') { name.value=decodeURIComponent(escape(N)); }
 				if (typeof(email)!='undefined') { email.value=E; }
 			}
 		}
