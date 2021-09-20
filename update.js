@@ -16,13 +16,14 @@ const kkupdate = { name: "KK Thread Updating",
 		var controls = document.createElement("div");
 		controls.id = "controls";
 		document.querySelector("#delform").lastElementChild.insertAdjacentElement("beforeBegin", controls);
-		controls.innerHTML += "[<a onclick=\"kkupdate.update();return false;\" href=\"\">Update</a>] [<label><input onchange=\"kkupdate.toggleAuto();\" type=\"checkbox\">Auto</label>] <span id=\"update-status\"></span><hr size=\"1\">";
+		controls.innerHTML += "[<a onclick=\"kkupdate.update();return false;\" href=\"\">Update</a>] [<label><input onchange=\"kkupdate.toggleAuto();\" checked type=\"checkbox\">Auto</label>] <span id=\"update-status\"></span><hr size=\"1\">";
 		document.addEventListener("scroll", function () {
 			if ((window.innerHeight + document.documentElement.scrollTop) >= (document.documentElement.scrollHeight - 2)) {
 				kkupdate.total = 0;
 				document.title = kkupdate.otitle;
 			}
 		});
+		kkupdate.toggleAuto();
 		return true;
 	},
 	reset: function () {
