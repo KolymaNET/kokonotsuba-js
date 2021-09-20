@@ -370,9 +370,6 @@ const kkjs = {
 		kkjs.fup();
 		kkwm.startup();
 		kkjs.sett_init();
-		$doc.postform &&
-			$id("rules").insertAdjacentHTML("beforeend",
-			'<span id="formfuncs"><a href="javascript:kkjs.form_switch();">Switch form position</a></span>');
 		kkjs.modules.forEach( function(mod) {
 			if (!mod.startup()) {
 				console.log("ERROR: Fatal error in module '"+mod.name+"'.");
