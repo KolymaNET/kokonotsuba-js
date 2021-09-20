@@ -12,6 +12,7 @@ const kkupdate = { name: "KK Thread Updating",
 		if (localStorage.getItem("update") != "true") {
 			return true;
 		}
+		if (!document.postform) {return true;}
 		if (!document.postform.resto) {return true;}
 		var controls = document.createElement("div");
 		controls.id = "controls";
