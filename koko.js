@@ -550,4 +550,66 @@ const kkjs = {
 		}
 	}
 };
+// Shoutbox
+function gID(s) { return document.getElementById(s); }
+/* 建立XMLHTTPSRequest物件 */
+function JSONXMLHTTPSReq(){
+	var objxml = false;
+	/*@cc_on @*/
+	/*@if (@_jscript_version >= 5)
+	try{
+		objxml = new ActiveXObject("Msxml2.XMLHTTPS");
+	}catch(e){
+		try{
+			objxml = new ActiveXObject("Microsoft.XMLHTTPS");
+		}catch(e2){ objxml = false; }
+	}
+	@end @*/
+	if(!objxml && typeof XMLHTTPSRequest!="undefined") {
+		objxml = new XMLHTTPSRequest();
+		if(objxml.overrideMimeType) objxml.overrideMimeType("text/plain");
+	}
+	return objxml;
+}
+var xHTTPSjson=JSONXMLHTTPSReq();
+
+function getLatestMessage(){
+	if(xHTTPSjson){
+		xHTTPSjson.open("GET","'.$this->myPage2.'&action=latest", true);
+		xHTTPSjson.onreadystatechange = ParseLatestMessage;
+		xHTTPSjson.send(null);
+	}
+}
+function ParseLatestMessage(){
+	if(xHTTPSjson.readyState==4){ // 讀取完成
+		var returnObj = eval("("+xHTTPSjson.responseText+")");
+		if(returnObj.message) {
+			gID("latestshout").innerHTML="<span class=\"e\">"+returnObj.emotion+"</span>&gt; <span class=\"m\">"+returnObj.message+"</span> <span class=\"d\">("+returnObj.date+")</span>";
+		}
+	}
+}
+
+function ToggleShoutBox() {
+	if(gID("shoutboxframe").className=="hide") {
+		gID("shoutboxframe").src="'.$this->myPage2.'";
+		gID("shoutboxframe").className="show";
+	}else{
+		gID("shoutboxframe").src="about:blank";
+		gID("shoutboxframe").className="hide";
+	}
+}
+
+function realsubmit() {
+	if(gID("shout_mesg").value) {
+		gID("real_shout_mesg").value=gID("shout_mesg").value;
+		gID("real_shout_emo").value=gID("shout_emo").value;
+		gID("realshoutboxform").submit();
+		gID("shout_mesg").value="";
+		setTimeout("getLatestMessage()",1000);
+	}
+	return false;
+}
+//--><!]]>
+
+
 window.addEventListener("DOMContentLoaded", kkjs.startup);
