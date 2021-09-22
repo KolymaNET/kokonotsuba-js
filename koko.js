@@ -124,6 +124,11 @@ document.write(`<style>
 .toplinks, .adminbar {
 	height: auto;
 }
+
+.hooklinks {
+padding-top: 0px;
+}
+
 </style>`);
 
 /* - */
