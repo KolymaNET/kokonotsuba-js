@@ -379,8 +379,13 @@ const kkjs = {
 			$id("rules").insertAdjacentHTML("beforeend",
 			'<span id="formfuncs"></span>');
 		kkjs.modules.forEach( function(mod) {
-			if (!mod.startup()) {
-				console.log("ERROR: Fatal error in module '"+mod.name+"'.");
+			try {
+				if (!mod.startup()) {
+					console.log("ERROR: Fatal error in module '"+mod.name+"'.");
+					kkjs.modules.pop(mod);
+				}
+			} catch (error) {
+				console.log("ERROR: Fatal error in module '"+mod.name+"'");
 				kkjs.modules.pop(mod);
 			}
 		} );
