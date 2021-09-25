@@ -48,7 +48,7 @@ const kkupdate = { name: "KK Thread Updating",
 					d.innerHTML = text;
 					var rs = document.querySelectorAll(".reply");
 					var lid = 0;
-					if (rs) lid = rs[rs.length-1].id.slice(1);
+					if (rs.length) lid = rs[rs.length-1].id.slice(1);
 					var frs = d.querySelectorAll(".reply");
 					var i;
 					for (i = frs.length-1; i > 0; i--)
