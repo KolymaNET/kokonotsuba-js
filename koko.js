@@ -367,6 +367,7 @@ const kkjs = {
 	modules: Array(),
 	posts: null,
 	startup: function () {
+		if (!(new URLSearchParams(window.location.search)).get("q") && document.querySelector("#com")) document.querySelector("#com").value="";
 		kkjs.posts = $class("post");
 		kkjs.l();
 		if (!localStorage.getItem("alwaysnoko"))
