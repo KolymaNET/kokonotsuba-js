@@ -52,7 +52,7 @@ const kkupdate = { name: "KK Thread Updating",
 					if (rs.length) lid = rs[rs.length-1].id.slice(1);
 					var frs = d.querySelectorAll(".post.reply");
 					var i;
-					for (i = frs.length-1; i > 0; i--)
+					for (i = frs.length-1; i >= 0; i--)
 						if (frs[i].id.slice(1) <= lid)
 							break;
 					i++;
