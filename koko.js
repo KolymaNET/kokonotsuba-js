@@ -212,6 +212,7 @@ Feature list:
 	wm_drag: null,
 	dx: 0, dy: 0,
 	drag_start: function (name, cx, cy) {
+		event.preventDefault();
 		kkwm.wm_drag = $kkwm_name(name);
 		if (!kkwm.wm_drag) return;
 		offs = kkwm.wm_drag.div.getBoundingClientRect();
