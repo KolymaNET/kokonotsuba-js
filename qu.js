@@ -51,9 +51,6 @@ function getSelectTxt() {
 /* Module */
 const kkqu = { name: "KK Quote",
 	startup: function () {
-		if (!localStorage.getItem("kkquote"))
-			localStorage.setItem("kkquote", true);
-		if (localStorage.getItem("kkquote")=="false") return true;
 		com = $id("com");
 		if (!com) return true;
 		kkqu.qu = $class("qu");
@@ -93,7 +90,7 @@ const kkqu = { name: "KK Quote",
 	},
 	/* Settings */
 	sett: function (tab, div) { if (tab!="general") return;
-		div.innerHTML+= '<label><input type="checkbox" onchange="localStorage.setItem(\'kkquote\',this.checked);location.reload();"'+(localStorage.getItem("kkquote")=="true"?'checked="checked"':'')+' />Quote tooltip</label>';
+		div.innerHTML+= '<label><input type="checkbox" onchange="localStorage.setItem(\'quotetooltip\',this.checked);location.reload();"'+(localStorage.getItem("quotetooltip")=="true"?'checked="checked"':'')+' />Quote tooltip</label>';
 	},
 	/* Function */
 	quote: function (no) {
@@ -128,6 +125,9 @@ const kkqu = { name: "KK Quote",
 		}, 50);
 	},
 	selopen: function (x, y) {
+		if (!localStorage.getItem("quotetooltip"))
+			localStorage.setItem("quotetooltip", true);
+		if (localStorage.getItem("quotetooltip")=="false") return true;
 		var txt = getSelectTxt();
 		if (!txt) return;
 		var selpop = $doc.createElement("div");
